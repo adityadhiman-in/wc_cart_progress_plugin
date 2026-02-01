@@ -4,7 +4,7 @@
  * Plugin Name: Cart Progress Discount by Aditya Dhiman
  * Plugin URI: https://adityadhiman.live
  * Description: Global cart incentive bar with automatic discounts to boost Average Order Value.
- * Version: 2.0.2
+ * Version: 2.1.0
  * Author: Aditya Dhiman
  * Author URI: https://adityadhiman.live
  * Text Domain: wc-cart-progress-discount
@@ -16,8 +16,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-// Plugin version
-define('WC_CPD_VERSION', '2.0.2');
+define('WC_CPD_VERSION', '2.1.0');
 
 /**
  * Discount rules configuration
@@ -76,7 +75,6 @@ function wc_cpd_ajax_get_cart()
 {
     header('Content-Type: application/json');
 
-    // Default response
     $response = array(
         'success' => false,
         'subtotal' => 0,
@@ -88,7 +86,6 @@ function wc_cpd_ajax_get_cart()
         'currency_symbol' => '₹',
     );
 
-    // Try to get cart data
     if (function_exists('WC') && WC()->cart) {
         try {
             $rules = wc_cpd_get_discount_rules();
@@ -136,7 +133,6 @@ function wc_cpd_ajax_get_cart()
                 'currency_symbol' => html_entity_decode(get_woocommerce_currency_symbol()),
             );
         } catch (Exception $e) {
-            // Return default response on error
         }
     }
 
@@ -156,8 +152,9 @@ function wc_cpd_output_bar()
     }
 ?>
     <!-- Cart Progress Discount by Aditya Dhiman - https://adityadhiman.live -->
-    <div id="wc-cpd-global" role="status" aria-live="polite" aria-hidden="true" style="display:none;">
+    <div id="wc-cpd-global" role="status" aria-live="polite" aria-hidden="true" class="wc-cpd-collapsed" style="display:none;">
         <div class="wc-cpd-card">
+            <button class="wc-cpd-close" aria-label="Close">×</button>
             <div class="wc-cpd-icon">🎁</div>
             <div class="wc-cpd-content">
                 <div class="wc-cpd-text"></div>
@@ -201,9 +198,11 @@ function wc_cpd_enqueue_assets()
     wp_localize_script('wc-cpd-script', 'wcCpdConfig', array(
         'ajaxUrl' => admin_url('admin-ajax.php'),
         'action' => 'wc_cpd_get_cart',
+        'collapsed' => true,
         'i18n' => array(
             'unlock_discount' => __('Add %1$s more to unlock %2$s OFF', 'wc-cart-progress-discount'),
             'unlocked' => __('🎉 You unlocked %s OFF', 'wc-cart-progress-discount'),
+            'collapsed' => __('Show cart progress', 'wc-cart-progress-discount'),
         ),
     ));
 }

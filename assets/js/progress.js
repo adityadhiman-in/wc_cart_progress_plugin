@@ -1,7 +1,7 @@
 /**
  * Cart Progress Discount - By Aditya Dhiman
  * https://adityadhiman.live
- * @version 2.0.2
+ * @version 2.1.0
  */
 
 (function ($) {
@@ -15,12 +15,24 @@
   var action = config.action || "wc_cpd_get_cart";
   var i18n = config.i18n || {};
 
-  var $container, $text, $fill;
+  var $container, $text, $fill, $closeBtn;
   var isHidden = true;
+  var isCollapsed = true;
+  var subtotal = 0;
 
   function formatCurrency(amount, symbol) {
     if (!amount || isNaN(amount) || amount <= 0) return symbol + "0";
     return symbol + Math.round(amount).toLocaleString("en-IN");
+  }
+
+  function toggleCollapse() {
+    isCollapsed = !isCollapsed;
+
+    if (isCollapsed) {
+      $container.addClass("wc-cpd-collapsed");
+    } else {
+      $container.removeClass("wc-cpd-collapsed");
+    }
   }
 
   function updateBar() {
@@ -35,15 +47,21 @@
         $container = $container || $("#wc-cpd-global");
         $text = $text || $container.find(".wc-cpd-text");
         $fill = $fill || $container.find(".wc-cpd-fill");
+        $closeBtn = $closeBtn || $container.find(".wc-cpd-close");
 
         if (!$container.length || !$text.length || !$fill.length) return;
 
+        // Store subtotal
+        subtotal = data.subtotal || 0;
+
         // Check if cart has items
-        if (!data || !data.success || !data.subtotal || data.subtotal <= 0) {
+        if (!data || !data.success || !subtotal || subtotal <= 0) {
           // Hide bar when cart is empty
           if (!isHidden) {
             $container.hide().attr("aria-hidden", "true");
             isHidden = true;
+            isCollapsed = true;
+            $container.addClass("wc-cpd-collapsed");
           }
           return;
         }
@@ -92,7 +110,6 @@
             $text.html("🎉 You unlocked <strong>" + discount + "</strong> OFF");
           }
         } else {
-          // First tier
           var goal = data.next_goal || 2000;
           var discount = data.next_discount || 5;
           var remaining = formatCurrency(goal, symbol);
@@ -115,9 +132,7 @@
         }
       },
       error: function () {
-        // Hide bar on error
-        $container = $container || $("#wc-cpd-global");
-        if ($container.length && !isHidden) {
+        if (!isHidden && subtotal <= 0) {
           $container.hide().attr("aria-hidden", "true");
           isHidden = true;
         }
@@ -129,16 +144,40 @@
     $container = $("#wc-cpd-global");
     $text = $container.find(".wc-cpd-text");
     $fill = $container.find(".wc-cpd-fill");
+    $closeBtn = $container.find(".wc-cpd-close");
 
     if (!$container.length) {
       setTimeout(init, 500);
       return;
     }
 
+    // Initially collapsed
+    $container.addClass("wc-cpd-collapsed");
+    isCollapsed = true;
+
+    // Close button - collapse the bar
+    $closeBtn.on("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleCollapse();
+    });
+
+    // Click on icon/card to expand (when collapsed)
+    $container.find(".wc-cpd-icon").on("click", function () {
+      if (isCollapsed && !isHidden) {
+        toggleCollapse();
+      }
+    });
+
     // Listen to WooCommerce events
     $(document.body).on(
       "added_to_cart removed_from_cart updated_cart_totals wc_fragments_refreshed wc_cart_emptied ajaxComplete",
-      updateBar,
+      function () {
+        // Reset collapsed state when cart changes
+        isCollapsed = false;
+        $container.removeClass("wc-cpd-collapsed");
+        updateBar();
+      },
     );
 
     // Visibility change

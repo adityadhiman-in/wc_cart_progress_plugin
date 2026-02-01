@@ -1,5 +1,7 @@
 # Cart Progress Discount
 
+![alt text](<Cart Progress.png>)
+
 A professional WooCommerce plugin by **Aditya Dhiman** that displays a global floating incentive bar to boost your Average Order Value (AOV).
 
 🔗 **Plugin URI:** https://adityadhiman.live  
