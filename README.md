@@ -126,7 +126,7 @@ This plugin is licensed under the GNU General Public License v2 or later.
 
 For support, please contact:
 
-- **Email:** contact@adityadhiman.live
+- **Email:** adityadhiman.in@gmail.com
 - **Website:** https://adityadhiman.live
 
 ---
