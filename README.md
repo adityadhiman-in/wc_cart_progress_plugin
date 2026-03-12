@@ -4,7 +4,6 @@
 
 A professional WooCommerce plugin by **Aditya Dhiman** that displays a global floating incentive bar to boost your Average Order Value (AOV).
 
-🔗 **Plugin URI:** https://adityadhiman.live  
 👤 **Author:** Aditya Dhiman  
 📧 **Author URI:** https://adityadhiman.live
 
