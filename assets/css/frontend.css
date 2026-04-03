@@ -1,0 +1,218 @@
+.wc-cart-discount-progress {
+	--wccdp-surface: #f7f8ef;
+	--wccdp-surface-strong: #ffffff;
+	--wccdp-text: #173127;
+	--wccdp-muted: #52685f;
+	--wccdp-accent: #1f6b3a;
+	--wccdp-accent-strong: #0f5a2f;
+	--wccdp-accent-soft: #dff1d7;
+	--wccdp-border: rgba(32, 91, 57, 0.12);
+	margin: 0 0 16px;
+	padding: 14px 16px;
+	position: relative;
+	overflow: hidden;
+	border: 1px solid var(--wccdp-border);
+	border-radius: 18px;
+	background:
+		radial-gradient(circle at top right, rgba(134, 209, 88, 0.18), transparent 34%),
+		linear-gradient(135deg, #fbfcf6 0%, #f0f6ea 48%, #eef6f1 100%);
+	box-shadow: 0 12px 26px rgba(17, 43, 31, 0.07);
+}
+
+.wc-cart-discount-progress__glow {
+	position: absolute;
+	inset: auto -30px -50px auto;
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(133, 214, 112, 0.28) 0%, rgba(133, 214, 112, 0) 72%);
+	pointer-events: none;
+}
+
+.wc-cart-discount-progress__content {
+	display: grid;
+	gap: 12px;
+	position: relative;
+	z-index: 1;
+}
+
+.wc-cart-discount-progress__badge {
+	display: inline-flex;
+	align-items: center;
+	width: fit-content;
+	padding: 5px 9px;
+	border-radius: 999px;
+	background: linear-gradient(135deg, var(--wccdp-accent) 0%, #2f8b4c 100%);
+	color: #fff;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	box-shadow: 0 8px 14px rgba(31, 107, 58, 0.14);
+}
+
+.wc-cart-discount-progress__title {
+	margin: 7px 0 3px;
+	color: var(--wccdp-text);
+	font-size: clamp(20px, 2vw, 26px);
+	font-weight: 800;
+	line-height: 1.16;
+	letter-spacing: -0.03em;
+}
+
+.wc-cart-discount-progress__subtitle {
+	margin: 0;
+	color: var(--wccdp-muted);
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.wc-cart-discount-progress__subtitle .woocommerce-Price-amount,
+.wc-cart-discount-progress__caption .woocommerce-Price-amount,
+.wc-cart-discount-progress__step .woocommerce-Price-amount {
+	color: inherit;
+	font-weight: 700;
+}
+
+.wc-cart-discount-progress__caption {
+	margin: 5px 0 0;
+	color: var(--wccdp-accent-strong);
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.35;
+}
+
+.wc-cart-discount-progress__track {
+	position: relative;
+	height: 8px;
+	overflow: hidden;
+	border-radius: 999px;
+	background: rgba(31, 107, 58, 0.1);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.wc-cart-discount-progress__fill {
+	display: block;
+	height: 100%;
+	border-radius: inherit;
+	background: linear-gradient(90deg, #258347 0%, #5fbd45 52%, #9de152 100%);
+	box-shadow: 0 6px 18px rgba(89, 180, 72, 0.28);
+	transition: width 0.3s ease, transform 0.3s ease;
+}
+
+.wc-cart-discount-progress__meter {
+	padding: 10px;
+	border-radius: 14px;
+	background: rgba(255, 255, 255, 0.64);
+	backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.58);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.wc-cart-discount-progress__meter-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 7px;
+	color: var(--wccdp-muted);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+}
+
+.wc-cart-discount-progress__meter-head strong {
+	color: var(--wccdp-text);
+	font-size: 12px;
+}
+
+.wc-cart-discount-progress__steps {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 8px;
+	margin-top: 8px;
+}
+
+.wc-cart-discount-progress__step {
+	padding: 8px 10px;
+	border-radius: 12px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.86) 0%, rgba(245, 249, 241, 0.92) 100%);
+	border: 1px solid rgba(28, 88, 53, 0.08);
+	color: #425a50;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.wc-cart-discount-progress__step strong,
+.wc-cart-discount-progress__step span {
+	display: block;
+}
+
+.wc-cart-discount-progress__step strong {
+	margin-bottom: 2px;
+	color: var(--wccdp-text);
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 1.2;
+}
+
+.wc-cart-discount-progress__step span {
+	font-size: 11px;
+	font-weight: 600;
+}
+
+.wc-cart-discount-progress__step.is-active {
+	background: linear-gradient(135deg, #1f6b3a 0%, #2e8750 100%);
+	color: #fff;
+	box-shadow: 0 10px 20px rgba(31, 107, 58, 0.15);
+}
+
+.wc-cart-discount-progress__step.is-active strong {
+	color: #fff;
+}
+
+@media (max-width: 640px) {
+	.wc-cart-discount-progress {
+		margin-bottom: 12px;
+		padding: 10px 11px;
+		border-radius: 14px;
+	}
+
+	.wc-cart-discount-progress__title {
+		margin-top: 5px;
+		font-size: 17px;
+		line-height: 1.2;
+	}
+
+	.wc-cart-discount-progress__subtitle,
+	.wc-cart-discount-progress__caption {
+		font-size: 11px;
+	}
+
+	.wc-cart-discount-progress__meter {
+		padding: 8px;
+		border-radius: 11px;
+	}
+
+	.wc-cart-discount-progress__steps {
+		grid-template-columns: 1fr;
+		gap: 6px;
+	}
+
+	.wc-cart-discount-progress__step {
+		padding: 7px 8px;
+		border-radius: 10px;
+	}
+
+	.wc-cart-discount-progress__step strong {
+		font-size: 13px;
+	}
+
+	.wc-cart-discount-progress__badge {
+		padding: 4px 7px;
+		font-size: 9px;
+	}
+
+	.wc-cart-discount-progress__meter-head {
+		font-size: 10px;
+	}
+}

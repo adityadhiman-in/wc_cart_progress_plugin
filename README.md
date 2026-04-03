@@ -1,157 +1,43 @@
-# Cart Progress Discount
+# WC Cart Discount Progress
 
-![alt text](<Cart Progress.png>)
+![alt text](hero-1.png)
 
-A professional WooCommerce plugin by **Aditya Dhiman** that displays a global floating incentive bar to boost your Average Order Value (AOV).
+WooCommerce plugin that:
 
-👤 **Author:** Aditya Dhiman  
-📧 **Author URI:** https://adityadhiman.live
+- Applies `2.5%` discount when cart subtotal reaches `2000`
+- Applies `5%` discount when cart subtotal reaches `3000`
+- Shows a progress banner at the top of the checkout page
+- Updates the banner automatically as checkout totals refresh
 
----
+## Change discount values
 
-## Description
-
-Cart Progress Discount is a production-grade WordPress + WooCommerce plugin that shows a **global floating incentive bar** on all pages of your store. The bar displays how much more customers need to spend to unlock discounts, encouraging them to add more items to their cart.
-
-### Features
-
-✅ **Global Coverage** - Appears on all pages (home, shop, product, cart, checkout, blog)  
-✅ **Automatic Discounts** - Applies discounts automatically at checkout  
-✅ **Real-time Updates** - Updates instantly when cart changes  
-✅ **No Theme Conflicts** - Fully isolated CSS and JavaScript  
-✅ **Mobile Responsive** - Looks great on all devices  
-✅ **No jQuery** - Pure vanilla JavaScript for best performance  
-✅ **Accessibility Ready** - Follows WCAG guidelines  
-✅ **Easy Configuration** - Simple PHP array to customize discount tiers
-
----
-
-## Installation
-
-1. Upload the `wc-cart-progress-discount` folder to your `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Configure discount rules in the PHP file (see Configuration below)
-
----
-
-## Configuration
-
-Edit the discount rules in `wc-cart-progress-discount.php`:
+Open [wc-cart-discount.php](C:/Users/Lenovo/Downloads/wc-cart-discount/wc-cart-discount.php) and update the `$discount_rules` array:
 
 ```php
-function wc_cpd_get_discount_rules(): array
-{
-    return [
-        2000 => 5,   // ₹2000 → 5% discount
-        3000 => 10,  // ₹3000 → 10% discount
-    ];
-}
+private $discount_rules = array(
+	2000 => 2.5,
+	3000 => 5.0,
+);
 ```
 
-Add or modify tiers as needed. Format: `amount => discount_percentage`
+Example:
 
----
-
-## How It Works
-
-1. Customer adds items to cart
-2. Floating bar appears at the top of the page showing:
-   - "Add ₹XXX more to unlock X% OFF" (when working toward a discount)
-   - Progress bar filling up
-3. When discount threshold is reached:
-   - Bar shows "🎉 You unlocked X% OFF"
-   - Discount is automatically applied at checkout
-4. Bar disappears when cart is empty
-
----
-
-## Files Structure
-
-```
-wc-cart-progress-discount/
-├── README.md
-├── wc-cart-progress-discount.php
-└── assets/
-    ├── css/
-    │   └── progress.css
-    └── js/
-        └── progress.js
+```php
+private $discount_rules = array(
+	1500 => 3.0,
+	2500 => 6.0,
+	4000 => 10.0,
+);
 ```
 
----
+## Install
 
-## Requirements
+1. Place this plugin folder inside `wp-content/plugins/`
+2. Activate it from WordPress admin
+3. Make sure WooCommerce is active
 
-- WordPress 5.0+
-- WooCommerce 5.0+
-- PHP 7.4+
+## Notes
 
----
-
-## Changelog
-
-### 2.0.0
-
-- Added top position floating bar
-- Fixed remaining amount calculation
-- Enhanced UI with gradient and animations
-- Added branding by Aditya Dhiman
-- Removed all console logs
-- Improved mobile responsiveness
-- Added gift icon
-- Full RTL support
-
-### 1.5.0
-
-- Fixed WooCommerce session initialization
-- Added admin-ajax.php endpoint for better compatibility
-- Added polling as fallback mechanism
-- Better error handling
-
-### 1.0.0
-
-- Initial release
-- Basic discount functionality
-- REST API endpoint
-- Floating bar UI
-
----
-
-## License
-
-This plugin is licensed under the GNU General Public License v2 or later.
-
----
-
-## Support
-
-For support, please contact:
-
-- **Email:** adityadhiman.in@gmail.com
-- **Website:** https://adityadhiman.live
-
----
-
-## Credits
-
-Created with ❤️ by **Aditya Dhiman**
-
-🔗 https://adityadhiman.live
-
----
-
-## Screenshots
-
-### Incentive Bar (Working toward discount)
-
-```
-🎁  Add ₹800 more to unlock 10% OFF
-[████████████████░░░░░░░░░░] 65%
-```
-
-### Incentive Bar (Discount unlocked)
-
-```
-🎉  You unlocked 10% OFF
-[████████████████████████] 100%
-```
+- Discount is calculated on cart product subtotal
+- Shipping is not used for discount threshold calculation
+- Banner is shown on the classic WooCommerce checkout flow
